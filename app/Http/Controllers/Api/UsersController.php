@@ -14,18 +14,18 @@ class UsersController extends Controller
     {
         $verifyData = \Cache::get($request->verification_key);
 
-       if (!$verifyData) {
-           abort(403, '验证码已失效');
-        }
+    //    if (!$verifyData) {
+    //        abort(403, '验证码已失效');
+    //     }
 
-        if (!hash_equals($verifyData['code'], $request->verification_code)) {
-            // 返回401
-            throw new AuthenticationException('验证码错误');
-        }
+    //     if (!hash_equals($verifyData['code'], $request->verification_code)) {
+    //         // 返回401
+    //         throw new AuthenticationException('验证码错误');
+    //     }
 
         $user = User::create([
             'name' => $request->name,
-            'phone' => $verifyData['phone'],
+            'email' => $request->email,//$verifyData['phone'],
             'password' => $request->password,
         ]);
 
