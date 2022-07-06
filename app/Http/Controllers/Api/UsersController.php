@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function store(UserRequest $request)
     {
-        $verifyData = \Cache::get($request->verification_key);
+    //    $verifyData = \Cache::get($request->verification_key);
 
     //    if (!$verifyData) {
     //        abort(403, '验证码已失效');
@@ -23,14 +23,16 @@ class UsersController extends Controller
     //         throw new AuthenticationException('验证码错误');
     //     }
 
+
         $user = User::create([
             'name' => $request->name,
-            'email' => $request->email,//$verifyData['phone'],
-            'password' => $request->password,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
         ]);
 
         // 清除验证码缓存
-        \Cache::forget($request->verification_key);
+        // \Cache::forget($request->verification_key);
 
         return new UserResource($user);
     }

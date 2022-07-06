@@ -21,4 +21,8 @@ class UserRequest extends FormRequest
             'verification_code' => '短信验证码',
         ];
     }
+    public function authorize()
+    {
+        return true;
+    }
 }
