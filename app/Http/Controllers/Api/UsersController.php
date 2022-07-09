@@ -29,10 +29,20 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+        
 
         // 清除验证码缓存
         // \Cache::forget($request->verification_key);
 
+        return (new UserResource($user))->showSensitiveFields();
+    }
+    public function show(User $user, Request $request)
+    {
         return new UserResource($user);
+    }
+
+    public function me(Request $request)
+    {
+        return (new UserResource($request->user()))->showSensitiveFields();
     }
 }

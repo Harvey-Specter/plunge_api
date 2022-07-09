@@ -25,20 +25,30 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1,1')->group(function
         Route::post('users', [UsersController::class, 'store'])->name('users.store');
         // 登录
         Route::post('authorizations', [AuthorizationsController::class, 'store'])->name('authorizations.store');
+        
     });
 
-    Route::middleware('throttle:' . config('api.rate_limits.access'))
-    ->group(function () {
-
-    });
-   
     Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
 
+         // 游客可以访问的接口
+        // 某个用户的详情
+        
+        // Route::get('users/{user}', 'UsersController@show')->name('users.show');
+        Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
+
+        // 登录后可以访问的接口
+        Route::middleware('auth:api')->group(function() {
+            // 当前登录用户信息
+            Route::get('user', [UsersController::class, 'me'])->name('user.show');
+            // 刷新token
+            Route::put('authorizations/current', [AuthorizationsController::class, 'update'])->name('authorizations.update');
+            // 删除token
+            Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
+        
+        });
+            
     });
-    // 刷新token
-    Route::put('authorizations/current', [AuthorizationsController::class, 'update'])->name('authorizations.update');
-    // 删除token
-    Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
+       
 });
 
 Route::prefix('v2')->name('api.v2.')->group(function() {
