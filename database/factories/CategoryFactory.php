@@ -11,8 +11,19 @@ class CategoryFactory extends Factory
 
     public function definition()
     {
-        return [
+        $sentence = $this->faker->sentence();
+        // return [
             // $this->faker->name,
+        // ];
+//     protected $fillable = ['name', 'code', 'remark', 'owner', 'stock_count', 'create_time'];
+
+        return [
+            'name' => $this->faker->name,
+            'code' => $this->faker->name,
+            'remark' => $sentence,
+            'owner' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11]),
+            'stock_count' => $this->faker->randomElement([19, 29, 39, 49]),
+            'create_time' => now(),
         ];
     }
 }
