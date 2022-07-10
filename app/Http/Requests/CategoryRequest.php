@@ -10,17 +10,14 @@ class CategoryRequest extends Request
         {
             // CREATE
             case 'POST':
-            {
-                return [
-                    // CREATE ROLES
-                ];
-            }
             // UPDATE
             case 'PUT':
             case 'PATCH':
             {
                 return [
-                    // UPDATE ROLES
+                    'name'       => 'required|min:2',
+                    'code'        => 'required|min:2',
+                    // 'category_id' => 'required|numeric',
                 ];
             }
             case 'GET':
@@ -28,14 +25,15 @@ class CategoryRequest extends Request
             default:
             {
                 return [];
-            }
+            };
         }
     }
 
     public function messages()
     {
         return [
-            // Validation messages
+            'name.min' => '标题必须至少两个字符',
+            'code.min' => '文章内容必须至少两个字符',
         ];
     }
 }
