@@ -95,7 +95,7 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 9960,
-            'throttle' => 60,
+            'throttle' => 9960,
         ],
     ],
 

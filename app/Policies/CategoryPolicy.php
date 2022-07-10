@@ -8,12 +8,12 @@ use App\Models\Category;
 class CategoryPolicy extends Policy
 {
 
-    public function update(User $user, Topic $category)
+    public function update(User $user, Category $category)
     {
         return $user->isAuthorOf($category);
     }
 
-    public function destroy(User $user, Topic $category)
+    public function destroy(User $user, Category $category)
     {
         return $user->isAuthorOf($category);
     }

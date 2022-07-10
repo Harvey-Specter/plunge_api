@@ -47,9 +47,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             // 分类列表
             Route::apiResource('categories', CategoriesController::class)->only(['index','show']);
 
-            Route::apiResource('categories', CategoriesController::class)->only([
-                'store', 'update', 'destroy'
-            ]);
+            Route::apiResource('categories', CategoriesController::class)->only(['store', 'update', 'destroy']);
         
         });
             

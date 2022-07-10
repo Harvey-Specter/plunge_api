@@ -18,11 +18,20 @@ class categoryRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'name' => 'required|string',
-            'code' => 'required|string',
-            // 'category_id' => 'required|exists:categories,id',
-        ];
+        switch($this->method()) {
+            case 'POST':
+                return [
+                    'name' => 'required|string',
+                    'code' => 'required|string',
+                ];
+                break;
+            case 'PATCH':
+                return [
+                    'name' => 'required|string',
+                    'code' => 'required|string',
+                ];
+                break;
+        }
     }
 
     public function attributes()

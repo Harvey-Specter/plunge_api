@@ -20,4 +20,12 @@ class CategoriesController extends Controller
         $category->save();
         return new CategoryResource($category);
     }
+
+    public function update(CategoryRequest $request, Category $category)
+    {
+        $this->authorize('update', $category);
+
+        $category->update($request->all());
+        return new CategoryResource($category);
+    }
 }
