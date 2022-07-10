@@ -28,4 +28,16 @@ class CategoriesController extends Controller
         $category->update($request->all());
         return new CategoryResource($category);
     }
+    public function destroy(Category $category)
+    {
+        $this->authorize('destroy', $category);
+
+        $category->delete();
+
+        return response(null, 204);
+    }
+    public function show(Category $category)
+    {
+        return new CategoryResource($category);
+    }
 }
