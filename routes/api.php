@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\UsersController;
-
+use App\Http\Controllers\Api\CategoriesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\UsersController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('v1')->name('api.v1.')->middleware('throttle:1,1')->group(function() {
+Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(function() {
     Route::get('version', function() {
         return 'this is version v1';
     })->name('version');
@@ -44,6 +44,12 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1,1')->group(function
             Route::put('authorizations/current', [AuthorizationsController::class, 'update'])->name('authorizations.update');
             // 删除token
             Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
+            // 分类列表
+            Route::apiResource('categories', CategoriesController::class)->only(['index','show']);
+
+            Route::apiResource('categories', CategoriesController::class)->only([
+                'store', 'update', 'destroy'
+            ]);
         
         });
             

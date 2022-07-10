@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'code', 'remark', 'owner', 'stock_count', 'create_time'];
+    protected $fillable = ['name', 'code', 'remark', 'owner', 'stock_count'];
     
     public function user(){
         return $this->belongsTo(User::class);

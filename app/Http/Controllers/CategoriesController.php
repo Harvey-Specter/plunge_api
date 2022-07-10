@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
 
 class CategoriesController extends Controller
 {
@@ -15,13 +16,9 @@ class CategoriesController extends Controller
     }
 
 	public function index()
-	{
-		$categories = Category::with('user')->paginate(30);
-
-		//$topics = Topic::with('user', 'category')->paginate(30);
-
-		return view('categories.index', compact('categories'));
-	}
+    {
+        return CategoryResource::collection(Category::all());
+    }
 
     public function show(Category $category)
     {
