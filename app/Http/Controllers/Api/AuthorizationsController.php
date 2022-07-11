@@ -15,11 +15,11 @@ class AuthorizationsController extends Controller
     {
         $username = $request->username;
 
-        // filter_var($username, FILTER_VALIDATE_EMAIL) ?
-        //     $credentials['email'] = $username :
-        //     $credentials['phone'] = $username;
+        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+            $credentials['email'] = $username :
+            $credentials['phone'] = $username;
 
-        $credentials['email'] = $username ;
+        //$credentials['email'] = $username ;
         $credentials['password'] = $request->password;
 
         if (!$token = \Auth::guard('api')->attempt($credentials)) {
@@ -32,9 +32,11 @@ class AuthorizationsController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
+            'code'=> '0000',
+            'data'=> [
             'access_token' => $token,
             'token_type' => 'Bearer',
-            'expires_in' => auth('api')->factory()->getTTL() * 60
+            'expires_in' => auth('api')->factory()->getTTL() * 60]
         ]);
     }
     public function update()
