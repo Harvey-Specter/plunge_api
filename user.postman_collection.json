@@ -1,0 +1,391 @@
+{
+	"info": {
+		"_postman_id": "70f9ec34-c53f-47b0-b21c-e3e1268e7e16",
+		"name": "user",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3811036"
+	},
+	"item": [
+		{
+			"name": "regist",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "lihong1",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "123@123.com",
+							"type": "text"
+						},
+						{
+							"key": "verification_key",
+							"value": "123",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "verification_code",
+							"value": "321",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://plunge.test/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "admin@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://plunge.test/api/v1/authorizations",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authorizations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刷新token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zIiwiaWF0IjoxNjU3NDQ0MjQxLCJleHAiOjE2NTc0NDc4NDEsIm5iZiI6MTY1NzQ0NDI0MSwianRpIjoiZTNzSHE1eGVSdEVMZjRLeCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.Crd2oea9MoBI6IV23-np6eoGQ2Re7-G6YZCoR1rgPZQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTY1NDM0ODI2OCwiZXhwIjoxNjU0MzUxODY4LCJuYmYiOjE2NTQzNDgyNjgsImp0aSI6IkFkQ0xzeFJDbHhYQTdxc0giLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.39yYayrJras2JbiyomTW2g8utC1jkZIOZRohgVb-XjU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://plunge.test/api/v1/authorizations/current",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authorizations",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zIiwiaWF0IjoxNjU3NDQ0MjQxLCJleHAiOjE2NTc0NDc4NDEsIm5iZiI6MTY1NzQ0NDI0MSwianRpIjoiZTNzSHE1eGVSdEVMZjRLeCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.Crd2oea9MoBI6IV23-np6eoGQ2Re7-G6YZCoR1rgPZQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTY1NDM0ODI2OCwiZXhwIjoxNjU0MzUxODY4LCJuYmYiOjE2NTQzNDgyNjgsImp0aSI6IkFkQ0xzeFJDbHhYQTdxc0giLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.39yYayrJras2JbiyomTW2g8utC1jkZIOZRohgVb-XjU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://plunge.test/api/v1/authorizations/current",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"authorizations",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "当前用户",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zIiwiaWF0IjoxNjU3Mzc1NDQ0LCJleHAiOjE2NTczNzkwNDQsIm5iZiI6MTY1NzM3NTQ0NCwianRpIjoibVdjRUgxZUNyQ1g0ekZFZCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.RaaWnDi9HCiz_zi4Ra3l9P6ruOU5WPLNJQh1L8jZ0ys",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://plunge.test/api/v1/user",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取某个用户",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9uc1wvY3VycmVudCIsImlhdCI6MTY1NDM0ODI2OCwiZXhwIjoxNjU0MzU0NjIzLCJuYmYiOjE2NTQzNTEwMjMsImp0aSI6IkNrY3JSemNCdGdveFVYQ0siLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.-s1-G-y4mX2balxSVeqkR-c7BXfDriMUZaOIr1D5yj4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://plunge.test/api/v1/users/1",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "添加图片",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTY1NDM5Mzg1MSwiZXhwIjoxNjU0Mzk3NDUxLCJuYmYiOjE2NTQzOTM4NTEsImp0aSI6Im1RNFB3ZXJnUVhlS1lRWjUiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.iYH-iuBa2jMRliu0sefy5iDA83gJGNBPUT528LteGJc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/lihon/Pictures/人人网.png"
+						},
+						{
+							"key": "type",
+							"value": "avatar",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/images",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "编辑用户资料",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTY1NDM5Mzg1MSwiZXhwIjoxNjU0Mzk3NDUxLCJuYmYiOjE2NTQzOTM4NTEsImp0aSI6Im1RNFB3ZXJnUVhlS1lRWjUiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.iYH-iuBa2jMRliu0sefy5iDA83gJGNBPUT528LteGJc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/user?name=test2&avatar_image_id=1&email=test2@123.com",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"user"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "test2"
+						},
+						{
+							"key": "avatar_image_id",
+							"value": "1"
+						},
+						{
+							"key": "email",
+							"value": "test2@123.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://plunge.test/api/v1/version",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"version"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

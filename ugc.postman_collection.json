@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "b7afef15-c8c4-4c3a-ad62-32522e6aae8c",
+		"name": "ugc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3811036"
+	},
+	"item": [
+		{
+			"name": "分类列表",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zIiwiaWF0IjoxNjU3NDIyNjE1LCJleHAiOjE2NTc0MjYyMTUsIm5iZiI6MTY1NzQyMjYxNSwianRpIjoiVlNzR1dOQzR1aU1nWDc3VSIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.W-yr-zueT3jkpyeR1-ymZViJbYaUp2_xSg4aXe2qENw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://plunge.test/api/v1/categories",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发布话题",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zIiwiaWF0IjoxNjU3NDQxMjE5LCJleHAiOjE2NTc0NDQ4MTksIm5iZiI6MTY1NzQ0MTIxOSwianRpIjoiSkt4MUg1UHRENU5EWFlTbCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.gl7S1XbQ069ghciIjHKg-57WHzwUfjg5KMxTCPqoLiI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "标题",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "正文",
+							"type": "text"
+						},
+						{
+							"key": "category_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发布分类",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zIiwiaWF0IjoxNjU3NDQyNDE4LCJleHAiOjE2NTc0NDYwMTgsIm5iZiI6MTY1NzQ0MjQxOCwianRpIjoiOTU1RXJhamlUS0JUa0NZdCIsInN1YiI6IjExIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.Tyrr9MbKaafrz8pJhOSZQCc0sp9PRE7qnWqANgwVnCA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "name2",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "code2",
+							"type": "text"
+						},
+						{
+							"key": "remark",
+							"value": "rrrr2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://plunge.test/api/v1/categories",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改话题",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTY1NDkzNzMyNiwiZXhwIjoxNjU0OTQwOTI2LCJuYmYiOjE2NTQ5MzczMjYsImp0aSI6Ijd6cnE1VXJ2OEpKMFBabFkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.S9G77b-J9JsbCsojD5wpA0yHVFkqw2SVvKftk5c-FRo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics/:id",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改分类",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vcGx1bmdlLnRlc3QvYXBpL3YxL2F1dGhvcml6YXRpb25zL2N1cnJlbnQiLCJpYXQiOjE2NTc0NDQyNDEsImV4cCI6MTY1NzQ0Nzk4MiwibmJmIjoxNjU3NDQ0MzgyLCJqdGkiOiJDY0NONm5XS2FYc1VrOFd6Iiwic3ViIjoiMTEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.IgSOalXPblOuJGUAfXw1i7j0LQxrB3UVWv6cwIRyjqY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "name_update",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "code_update",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://plunge.test/api/v1/categories/:id",
+					"protocol": "http",
+					"host": [
+						"plunge",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"categories",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "21"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除话题",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sYXJhYmJzOC50ZXN0XC9hcGlcL3YxXC9hdXRob3JpemF0aW9ucyIsImlhdCI6MTY1NDkzNzMyNiwiZXhwIjoxNjU0OTQwOTI2LCJuYmYiOjE2NTQ5MzczMjYsImp0aSI6Ijd6cnE1VXJ2OEpKMFBabFkiLCJzdWIiOjEsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.S9G77b-J9JsbCsojD5wpA0yHVFkqw2SVvKftk5c-FRo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics/:id",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "话题列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics?include=user,category",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "user,category"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "用户话题列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/users/:id/topics?include=user,category",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						":id",
+						"topics"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "user,category"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "话题详情",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics/:id/?include=user,category",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics",
+						":id",
+						""
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "user,category"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "56"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "发布回复",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGFyYWJiczgudGVzdC9hcGkvdjEvYXV0aG9yaXphdGlvbnMiLCJpYXQiOjE2NTQ5OTUxNjcsImV4cCI6MTY1NDk5ODc2NywibmJmIjoxNjU0OTk1MTY3LCJqdGkiOiJ1VUt6UFlERzJrRE5mamtRIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.V5lUgH8EwZRFjA2TqdGLIgYpn9anl8zc05mKaRpinug",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "content",
+							"value": "bodybodybodybody",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics/:id/replies",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics",
+						":id",
+						"replies"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除评论",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGFyYWJiczgudGVzdC9hcGkvdjEvYXV0aG9yaXphdGlvbnMiLCJpYXQiOjE2NTQ5OTUxNjcsImV4cCI6MTY1NDk5ODc2NywibmJmIjoxNjU0OTk1MTY3LCJqdGkiOiJ1VUt6UFlERzJrRE5mamtRIiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.V5lUgH8EwZRFjA2TqdGLIgYpn9anl8zc05mKaRpinug",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics/:id/replies/:pid",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics",
+						":id",
+						"replies",
+						":pid"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						},
+						{
+							"key": "pid",
+							"value": "990"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "话题回复列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/topics/:id/replies?include=user",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"topics",
+						":id",
+						"replies"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "user"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "用户回复列表",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://larabbs8.test/api/v1/users/:id/replies?include=topic",
+					"protocol": "http",
+					"host": [
+						"larabbs8",
+						"test"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						":id",
+						"replies"
+					],
+					"query": [
+						{
+							"key": "include",
+							"value": "topic"
+						}
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
