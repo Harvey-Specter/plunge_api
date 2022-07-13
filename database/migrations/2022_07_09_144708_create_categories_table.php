@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('code');
             $table->string('remark')->nullable();
-            $table->integer('owner')->unsigned()->default(0);
+            $table->integer('user_id')->unsigned()->default(0);
             $table->integer('stock_count')->unsigned()->default(0);
             $table->date('create_time');
             $table->timestamps();

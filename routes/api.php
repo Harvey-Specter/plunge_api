@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\UsersController;
 use App\Http\Controllers\Api\CategoriesController;
+use App\Http\Controllers\Api\StocksController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,14 +27,14 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
         Route::post('users', [UsersController::class, 'store'])->name('users.store');
         // 登录
         Route::post('authorizations', [AuthorizationsController::class, 'store'])->name('authorizations.store');
-        
+
     });
 
     Route::middleware('throttle:' . config('api.rate_limits.access'))->group(function () {
 
          // 游客可以访问的接口
         // 某个用户的详情
-        
+
         // Route::get('users/{user}', 'UsersController@show')->name('users.show');
         Route::get('users/{user}', [UsersController::class, 'show'])->name('users.show');
 
@@ -48,11 +50,15 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             Route::apiResource('categories', CategoriesController::class)->only(['index','show']);
 
             Route::apiResource('categories', CategoriesController::class)->only(['store', 'update', 'destroy']);
-        
+
+            // 发布, 删除回复
+            Route::apiResource('categories.stocks', StocksController::class)->only([
+                'store', 'destroy'
+            ]);
         });
-            
+
     });
-       
+
 });
 
 Route::prefix('v2')->name('api.v2.')->group(function() {

@@ -8,7 +8,12 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'code', 'remark', 'owner', 'stock_count'];
-    
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }

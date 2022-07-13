@@ -21,12 +21,12 @@ class CategoriesController extends Controller
             'list'=> $all->items(),
             'total' => $all->total()]
         ]);
-        
+
     }
     public function store(CategoryRequest $request, Category $category)
     {
         $category->fill($request->all());
-        $category->owner = $request->user()->id;
+        $category->user_id = $request->user()->id;
         $category->save();
         return new CategoryResource($category);
     }

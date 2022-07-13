@@ -28,7 +28,10 @@ class User extends Authenticatable implements JWTSubject
         // 'weixin_openid',
         // 'weixin_unionid'
     ];
-
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
