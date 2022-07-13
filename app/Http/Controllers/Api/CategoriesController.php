@@ -12,11 +12,8 @@ class CategoriesController extends Controller
     public function index()
     {
         // return CategoryResource::collection(Category::all());
-        $all = Category::paginate(2);
+        $all = Category::paginate(10);
         $data = $all->items();
-
-        //var_dump($all[1]);
-        // return CategoryResource::collection($all->total());
 
         return response()->json([
             'code'=> '0000',
