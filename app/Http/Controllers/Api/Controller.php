@@ -7,5 +7,12 @@ use App\Http\Controllers\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    //
+    public function dataWithPage($data){
+        return response()->json([
+            'code'=> '0000',
+            'data'=>[
+            'list'=> $data->items(),
+            'total' => $data->total()]
+        ]); 
+    }
 }

@@ -13,14 +13,7 @@ class CategoriesController extends Controller
     {
         // return CategoryResource::collection(Category::all());
         $all = Category::paginate(10);
-        $data = $all->items();
-
-        return response()->json([
-            'code'=> '0000',
-            'data'=>[
-            'list'=> $all->items(),
-            'total' => $all->total()]
-        ]);
+        return parent::dataWithPage($all);
 
     }
     public function store(CategoryRequest $request, Category $category)

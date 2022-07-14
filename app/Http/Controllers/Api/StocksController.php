@@ -13,6 +13,13 @@ use App\Http\Requests\Api\StockRequest;
 
 class StocksController extends Controller
 {
+    public function index(Category $category)
+    {
+        $stocks = $category->stocks()->paginate();
+
+        return parent::dataWithPage($stocks);
+    }
+
     public function store(StockRequest $request,Category $category, Stock $stock)
     {
         $stock->remark = $request->remark;
@@ -27,6 +34,17 @@ class StocksController extends Controller
         $stock->save();
 
         return new StockResource($stock);
+    }
+    public function destroy(Category $category, Stock $stock)
+    {
+        if ($stock->category_id != $category->id) {
+            abort(404);
+        }
+
+        $this->authorize('destroy', $stock);
+        $stock->delete();
+
+        return response(null, 204);
     }
 }
 

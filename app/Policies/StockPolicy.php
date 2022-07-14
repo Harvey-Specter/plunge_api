@@ -15,6 +15,6 @@ class StockPolicy extends Policy
 
     public function destroy(User $user, Stock $stock)
     {
-        return true;
+        return $user->isAuthorOf($stock) || $user->isAuthorOf($stock->category);
     }
 }
