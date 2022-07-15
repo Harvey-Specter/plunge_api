@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Stock;
@@ -10,14 +9,19 @@ use App\Models\Category;
 
 use App\Http\Resources\StockResource;
 use App\Http\Requests\Api\StockRequest;
+use App\Http\Queries\StockQuery;
 
 class StocksController extends Controller
 {
-    public function index(Category $category)
-    {
-        $stocks = $category->stocks()->paginate();
+    // public function index(Category $category)
+    public function index($category_id, StockQuery $query)
 
-        return parent::dataWithPage($stocks);
+    {
+        //$stocks = $category->stocks()->paginate();
+
+        $stocks = $query->where('category_id', $category_id)->paginate();
+        $data =parent::dataWithPage($stocks); 
+        return $data;
     }
 
     public function store(StockRequest $request,Category $category, Stock $stock)

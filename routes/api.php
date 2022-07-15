@@ -55,7 +55,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
                 'store', 'destroy'
             ]);
             // 股票列表
-            Route::apiResource('categories.stocks', RepliesController::class)->only([
+            Route::apiResource('categories.stocks', StocksController::class)->only([
                 'index',
             ]);
         });

@@ -14,7 +14,8 @@
         "mews/captcha": "~3.0",
         "mews/purifier": "~3.3",
         "overtrue/laravel-lang": "~6.0",
-        "php-open-source-saver/jwt-auth": "^1.4"
+        "php-open-source-saver/jwt-auth": "^1.4",
+        "spatie/laravel-query-builder": "^5.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "~3.6",
