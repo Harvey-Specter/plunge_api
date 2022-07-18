@@ -32,6 +32,7 @@ class categoryRequest extends FormRequest
                 ];
                 break;
         }
+        return [];
     }
 
     public function attributes()

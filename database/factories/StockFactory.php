@@ -19,8 +19,8 @@ class StockFactory extends Factory
             'code' => rand(600000, 605000),
             'user_id' => rand(1, 10),
             'category_id' => rand(1, 20),
-            'pattern' => $this->faker->randomElement(['放量突破', '吸筹', '回调到缺口', '连续收星']),
-            'market' => $this->faker->randomElement(['中国', '日本'])
+            'pattern' => $this->faker->randomElement([1, 2, 3, 4]),
+            'market' => $this->faker->randomElement([1, 2])
         ];
     }
 }

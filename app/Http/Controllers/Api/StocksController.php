@@ -14,12 +14,11 @@ use App\Http\Queries\StockQuery;
 class StocksController extends Controller
 {
     // public function index(Category $category)
-    public function index($category_id, StockQuery $query)
-
+    public function index($category_id, StockQuery $query,StockRequest $request)
     {
         //$stocks = $category->stocks()->paginate();
 
-        $stocks = $query->where('category_id', $category_id)->paginate();
+        $stocks = $query->where('category_id', $category_id)->paginate($request->pageSize);
         $data =parent::dataWithPage($stocks); 
         return $data;
     }

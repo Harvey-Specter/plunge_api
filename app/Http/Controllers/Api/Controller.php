@@ -15,4 +15,12 @@ class Controller extends BaseController
             'total' => $data->total()]
         ]); 
     }
+    // public function dataWithPage($data){
+    //     return [
+    //         'code'=> '0000',
+    //         'data'=>[
+    //         'list'=> $data->items(),
+    //         'total' => $data->total()]
+    //     ]; 
+    // }
 }

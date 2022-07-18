@@ -69,7 +69,11 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'PRC',
+
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
+
+    // 'timezone' => 'Asia/Singapore',
 
     /*
     |--------------------------------------------------------------------------

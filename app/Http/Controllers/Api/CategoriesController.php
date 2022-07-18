@@ -9,10 +9,10 @@ use App\Http\Requests\Api\CategoryRequest;
 
 class CategoriesController extends Controller
 {
-    public function index()
+    public function index(CategoryRequest $request)
     {
         // return CategoryResource::collection(Category::all());
-        $all = Category::paginate(10);
+        $all = Category::paginate($request->pageSize);
         return parent::dataWithPage($all);
 
     }

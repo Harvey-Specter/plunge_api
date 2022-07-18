@@ -23,7 +23,7 @@ class StockResource extends JsonResource
             'category_id' => (int) $this->category_id,
             'pattern' => $this->pattern,
             'remark' => $this->remark,
-            'created_at' => (string) $this->created_at,
+            'created_at' => (string) $this->created_at->date('Y-m-d-H:i:s'),
             'updated_at' => (string) $this->updated_at,
         ];
     }
