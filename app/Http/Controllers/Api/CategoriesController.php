@@ -6,6 +6,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\Api\CategoryRequest;
+use Illuminate\Support\Facades\DB;
+
 
 class CategoriesController extends Controller
 {
@@ -15,17 +17,16 @@ class CategoriesController extends Controller
 
         //select a.id,a.name,a.remark,a.user_id,a.created_at , count(b.code)cnt from categories a ,stocks b where b.category_id=a.id group by a.id,a.name,a.remark,a.user_id,a.created_at limit 5 ;
 
-        //     $query = DB::table('category_issue')
-        // ->select(array('issues.*', DB::raw('COUNT(issue_subscriptions.issue_id) as followers')))
+        $cate = DB::table('categories')
+        ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
         // ->where('category_id', '=', 1)
-        // ->join('issues', 'category_issue.issue_id', '=', 'issues.id')
-        // ->left_join('issue_subscriptions', 'issues.id', '=', 'issue_subscriptions.issue_id')
-        // ->group_by('issues.id')
-        // ->order_by('followers', 'desc')
-        // ->get();
+        ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
+        ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
+        ->orderBy('categories.created_at', 'desc')
+        ->paginate($request->pageSize);
 
-        $all = Category::paginate($request->pageSize);
-        return parent::dataWithPage($all);
+        // $all = Category::paginate($request->pageSize);
+        return parent::dataWithPage($cate);
 
     }
     public function store(CategoryRequest $request, Category $category)
