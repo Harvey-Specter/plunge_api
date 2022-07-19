@@ -16,7 +16,7 @@ class CategoryRequest extends Request
             {
                 return [
                     'name'       => 'required|min:2',
-                    'code'        => 'required|min:2',
+                    // 'code'        => 'required|min:2',
                     // 'category_id' => 'required|numeric',
                 ];
             }

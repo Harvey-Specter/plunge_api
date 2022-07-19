@@ -12,6 +12,16 @@ class CategoriesController extends Controller
     public function index(CategoryRequest $request)
     {
         // return CategoryResource::collection(Category::all());
+
+        //     $query = DB::table('category_issue')
+        // ->select(array('issues.*', DB::raw('COUNT(issue_subscriptions.issue_id) as followers')))
+        // ->where('category_id', '=', 1)
+        // ->join('issues', 'category_issue.issue_id', '=', 'issues.id')
+        // ->left_join('issue_subscriptions', 'issues.id', '=', 'issue_subscriptions.issue_id')
+        // ->group_by('issues.id')
+        // ->order_by('followers', 'desc')
+        // ->get();
+
         $all = Category::paginate($request->pageSize);
         return parent::dataWithPage($all);
 
