@@ -13,6 +13,8 @@ class CategoriesController extends Controller
     {
         // return CategoryResource::collection(Category::all());
 
+        //select a.id,a.name,a.remark,a.user_id,a.created_at , count(b.code)cnt from categories a ,stocks b where b.category_id=a.id group by a.id,a.name,a.remark,a.user_id,a.created_at limit 5 ;
+
         //     $query = DB::table('category_issue')
         // ->select(array('issues.*', DB::raw('COUNT(issue_subscriptions.issue_id) as followers')))
         // ->where('category_id', '=', 1)
