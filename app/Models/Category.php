@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'code', 'remark', 'owner', 'stock_count'];
+    protected $fillable = ['name', 'code', 'remark', 'user_id', 'stock_count'];
 
     public function stocks()
     {

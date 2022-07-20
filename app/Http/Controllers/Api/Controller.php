@@ -13,7 +13,15 @@ class Controller extends BaseController
             'data'=>[
             'list'=> $data->items(),
             'total' => $data->total()]
-        ]); 
+        ]);
+    }
+
+    public function success($data){
+        return response()->json([
+            'code'=> '0000',
+            'msg' => '操作成功',
+            'data'=>$data
+        ]);
     }
     // public function dataWithPage($data){
     //     return [
@@ -21,6 +29,6 @@ class Controller extends BaseController
     //         'data'=>[
     //         'list'=> $data->items(),
     //         'total' => $data->total()]
-    //     ]; 
+    //     ];
     // }
 }

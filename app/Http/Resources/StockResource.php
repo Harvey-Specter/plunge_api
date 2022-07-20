@@ -19,7 +19,7 @@ class StockResource extends JsonResource
             'price_id' => $this->price_id,
             'day' =>  $this->day,
             'code' =>  $this->code,
-            'owner' => (int) $this->owner,
+            'user_id' => (int) $this->user_id,
             'category_id' => (int) $this->category_id,
             'pattern' => $this->pattern,
             'remark' => $this->remark,

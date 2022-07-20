@@ -34,7 +34,9 @@ class CategoriesController extends Controller
         $category->fill($request->all());
         $category->user_id = $request->user()->id;
         $category->save();
-        return new CategoryResource($category);
+
+        return parent::success($category);
+        //return new CategoryResource($category);
     }
 
     public function update(CategoryRequest $request, Category $category)
