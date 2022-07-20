@@ -11,11 +11,11 @@ return new class extends Migration
 		Schema::create('categories', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('code');
+            $table->string('code')->default('');
             $table->string('remark')->nullable();
             $table->integer('user_id')->unsigned()->default(0);
             $table->integer('stock_count')->unsigned()->default(0);
-            $table->date('create_time');
+            // $table->date('create_time');
             $table->timestamps();
         });
 	}

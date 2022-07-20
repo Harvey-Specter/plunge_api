@@ -23,7 +23,7 @@ class CategoryFactory extends Factory
             'remark' => $sentence,
             'user_id' => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11]),
             'stock_count' => $this->faker->randomElement([19, 29, 39, 49]),
-            'create_time' => now(),
+            // 'create_time' => now(),
         ];
     }
 }

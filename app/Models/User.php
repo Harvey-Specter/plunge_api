@@ -28,6 +28,10 @@ class User extends Authenticatable implements JWTSubject
         // 'weixin_openid',
         // 'weixin_unionid'
     ];
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
     public function stocks()
     {
         return $this->hasMany(Stock::class);
@@ -59,11 +63,6 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
-    }
-
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
     }
 
     public function isAuthorOf($model)

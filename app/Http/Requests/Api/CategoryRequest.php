@@ -22,7 +22,7 @@ class categoryRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => 'required|string',
-                    'code' => 'required|string',
+                    // 'code' => 'required|string',
                 ];
                 break;
             case 'PATCH':
