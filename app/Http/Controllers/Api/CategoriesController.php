@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\Api\CategoryRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 
 class CategoriesController extends Controller
@@ -38,7 +40,7 @@ class CategoriesController extends Controller
         $codeArray = explode(',', $request->stocks);
 
         for ($i = 0; $i < count($codeArray); ++$i) {
-            
+
             $stock->remark = '批量加入';
             $stock->price_id = 0;
             $stock->code = $codeArray[$i];
@@ -47,9 +49,7 @@ class CategoriesController extends Controller
                 $stock->market = 2;
             }
             $stock->pattern = '0';
-            
             $stock->day = now();
-
             $stock->category_id=$category->id;
             $stock->user_id = $request->user()->id;
             $stock->save();
@@ -67,13 +67,38 @@ class CategoriesController extends Controller
         $category->update($request->all());
         return new CategoryResource($category);
     }
-    public function destroy(Category $category)
+    public function destroy(CategoryRequest $request, Category $category)
     {
         $this->authorize('destroy', $category);
+        // ->whereIn('id', [1, 2, 3])
 
-        $category->delete();
+        $ids=$request->ids;
+        $idsArray = explode(',',$ids);
+        $deleted = DB::table('stocks')->whereIn('category_id', idsArray)->delete();
 
-        return response(null, 204);
+        Categories::destroy($idsArray);
+
+        // $deleted = DB::table('categories')->whereIn('id', idsArray)->delete();
+
+        return parent::success(null);
+        // return response(null, 204);
+    }
+    public function delCate(CategoryRequest $request, Category $category)
+    {
+        // $this->authorize('destroy', $category);
+        // ->whereIn('id', [1, 2, 3])
+
+        $ids=$request->ids;
+        Log::debug("ids========".$ids);
+        $idsArray = explode(',',$ids);
+        $deleted = DB::table('stocks')->whereIn('category_id', $idsArray)->delete();
+
+        Category::destroy($idsArray);
+
+        // $deleted = DB::table('categories')->whereIn('id', idsArray)->delete();
+
+        return parent::success(null);
+        // return response(null, 204);
     }
     public function show(Category $category)
     {

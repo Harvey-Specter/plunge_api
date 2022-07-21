@@ -21,7 +21,7 @@ class categoryRequest extends FormRequest
         switch($this->method()) {
             case 'POST':
                 return [
-                    'name' => 'required|string',
+                    // 'name' => 'required|string',
                     // 'code' => 'required|string',
                 ];
                 break;

@@ -54,6 +54,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             Route::apiResource('categories.stocks', StocksController::class)->only([
                 'store', 'destroy'
             ]);
+
+            Route::post('categories/delCate', [CategoriesController::class, 'delCate'])->name('categories.delCate');
             // 股票列表
             Route::apiResource('categories.stocks', StocksController::class)->only([
                 'index',
