@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 use App\Http\Requests\Api\CategoryRequest;
@@ -19,7 +20,6 @@ class CategoriesController extends Controller
 
         $cate = DB::table('categories')
         ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
-        // ->where('category_id', '=', 1)
         ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
         ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
         ->orderBy('categories.created_at', 'desc')
@@ -29,11 +29,32 @@ class CategoriesController extends Controller
         return parent::dataWithPage($cate);
 
     }
-    public function store(CategoryRequest $request, Category $category)
+    public function store(CategoryRequest $request, Category $category,Stock $stock)
     {
         $category->fill($request->all());
         $category->user_id = $request->user()->id;
         $category->save();
+
+        $codeArray = explode(',', $request->stocks);
+
+        for ($i = 0; $i < count($codeArray); ++$i) {
+            
+            $stock->remark = '批量加入';
+            $stock->price_id = 0;
+            $stock->code = $codeArray[$i];
+            $stock->market = 1;
+            if(strlen($codeArray[$i])==4){
+                $stock->market = 2;
+            }
+            $stock->pattern = '0';
+            
+            $stock->day = now();
+
+            $stock->category_id=$category->id;
+            $stock->user_id = $request->user()->id;
+            $stock->save();
+
+        }
 
         return parent::success($category);
         //return new CategoryResource($category);
