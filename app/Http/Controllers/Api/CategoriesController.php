@@ -31,31 +31,58 @@ class CategoriesController extends Controller
         return parent::dataWithPage($cate);
 
     }
-    public function store(CategoryRequest $request, Category $category,Stock $stock)
+
+    public function getStocksByCategoryId(CategoryRequest $request)
     {
-        $category->fill($request->all());
-        $category->user_id = $request->user()->id;
-        $category->save();
+        $cateId = $request->id;
 
-        $codeArray = explode(',', $request->stocks);
+        $stockCodes = DB::table('stocks')
+        ->select(array('code' ))->where('category_id', '=', $cateId)->get();
 
+        return parent::success($stockCodes);
+
+    }
+
+    public function batchSaveStock( $request,$codeArray ,$category_id){
+
+        // Log::debug('An informational message.-----',$codeArray);
         for ($i = 0; $i < count($codeArray); ++$i) {
 
-            $stock->remark = '批量加入';
+            $stock = new Stock;
+
+            $stock->remark = 'by category';
             $stock->price_id = 0;
             $stock->code = $codeArray[$i];
             $stock->market = 1;
             if(strlen($codeArray[$i])==4){
                 $stock->market = 2;
             }
+            //Log::debug('An informational message.-----',$codeArray[$i]);
             $stock->pattern = '0';
             $stock->day = now();
-            $stock->category_id=$category->id;
+            $stock->category_id=$category_id;
             $stock->user_id = $request->user()->id;
             $stock->save();
-
         }
+    }
+    public function store(CategoryRequest $request, Category $category)
+    {
+        $id = $request->id;
+        $codeArray = explode(',', $request->stocks);
+        if(empty($id)){
+            $category->fill($request->all());
+            $category->user_id = $request->user()->id;
+            $category->save();
 
+            $this->batchSaveStock($request, $codeArray, $category->id);
+        }else{
+            $name = $request->name;
+            $remark = $request->remark;
+            Category::where('id', $id)->update(['name' => $name,'remark'=>$remark]);
+            $deleted = DB::table('stocks')->where('category_id', $id)->delete();
+
+            $this->batchSaveStock($request, $codeArray, $id);
+        }
         return parent::success($category);
         //return new CategoryResource($category);
     }
