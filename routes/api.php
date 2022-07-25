@@ -50,6 +50,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
              //getStocksByCategoryId
             Route::get('categories/getStocksByCategoryId', [CategoriesController::class, 'getStocksByCategoryId'])->name('categories.getStocksByCategoryId');
             Route::post('categories/delCate', [CategoriesController::class, 'delCate'])->name('categories.delCate');
+            Route::post('stocks/del', [StocksController::class, 'delStock'])->name('stocks.delStock');
 
 
             // 分类列表
@@ -68,9 +69,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
                 'index',
             ]);
         });
-
     });
-
 });
 
 Route::prefix('v2')->name('api.v2.')->group(function() {

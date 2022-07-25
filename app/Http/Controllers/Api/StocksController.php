@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Http\Resources\StockResource;
 use App\Http\Requests\Api\StockRequest;
 use App\Http\Queries\StockQuery;
+use Illuminate\Support\Facades\Log;
 
 class StocksController extends Controller
 {
@@ -19,7 +20,7 @@ class StocksController extends Controller
         //$stocks = $category->stocks()->paginate();
 
         $stocks = $query->where('category_id', $category_id)->paginate($request->pageSize);
-        $data =parent::dataWithPage($stocks); 
+        $data =parent::dataWithPage($stocks);
         return $data;
     }
 
@@ -47,15 +48,17 @@ class StocksController extends Controller
         $this->authorize('destroy', $stock);
         $stock->delete();
 
-        return response(null, 204);
+        // return response(null, 204);
+        return parent::success(204);
+    }
+    public function delStock(StockRequest $request, Stock $stock)
+    {
+        // $this->authorize('destroy', $stock);
+        $ids=$request->ids;
+        Log::debug("delStock========".$ids);
+        $idsArray = explode(',',$ids);
+        //$deleted = DB::table('stocks')->whereIn('id', $idsArray)->delete();
+        Stock::destroy($idsArray);
+        return parent::success(204);
     }
 }
-
-// $table->Integer('price_id')->unsigned();
-//             $table->date('day')->index();
-//             $table->string('code')->index();
-//             $table->Integer('owner')->unsigned();
-//             $table->integer('category_id')->unsigned();
-//             $table->integer('pattern')->unsigned()->default(0);
-//             $table->string('market');
-//             $table->string('remark')->nullable ();

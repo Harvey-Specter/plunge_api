@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\Api\AuthorizationRequest;
 use App\Http\Requests\Api\SocialAuthorizationRequest;
-
+use Illuminate\Support\Facades\Log;
 class AuthorizationsController extends Controller
 {
     public function store(AuthorizationRequest $request)
@@ -48,6 +48,7 @@ class AuthorizationsController extends Controller
     public function destroy()
     {
         auth('api')->logout();
-        return response(null, 204);
+        Log::debug("logout========logout");
+        return parent::success(204);
     }
 }
