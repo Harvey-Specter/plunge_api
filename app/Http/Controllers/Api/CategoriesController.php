@@ -96,7 +96,7 @@ class CategoriesController extends Controller
     }
     public function destroy(CategoryRequest $request, Category $category)
     {
-        $this->authorize('destroy', $category);
+        // $this->authorize('destroy', $category);
         // ->whereIn('id', [1, 2, 3])
 
         $ids=$request->ids;
