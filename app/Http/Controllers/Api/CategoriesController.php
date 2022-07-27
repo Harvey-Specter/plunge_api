@@ -24,7 +24,7 @@ class CategoriesController extends Controller
         ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
         ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
         ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
-        ->orderBy('categories.created_at', 'desc')
+        ->orderBy('categories.id', 'desc')
         ->paginate($request->pageSize);
 
         // $all = Category::paginate($request->pageSize);

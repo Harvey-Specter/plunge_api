@@ -43,6 +43,8 @@ class UsersController extends Controller
 
     public function me(Request $request)
     {
-        return (new UserResource($request->user()))->showSensitiveFields();
+        
+        
+        return parent::success((new UserResource($request->user()))->showSensitiveFields());
     }
 }
