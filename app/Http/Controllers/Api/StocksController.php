@@ -35,7 +35,9 @@ class StocksController extends Controller
 
         $stock->category()->associate($category);
         $stock->user()->associate($request->user());
-        $stock->save();
+
+        Log::debug("delStock========".$request->user());
+        //$stock->save();
 
         return new StockResource($stock);
     }

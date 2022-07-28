@@ -42,6 +42,31 @@ class CategoriesController extends Controller
         return parent::success($stockCodes);
 
     }
+    public function getCatesByUserId(CategoryRequest $request)
+    {
+        $userId = $request->userId;
+
+        $cates = DB::table('categories')
+        ->select(array('id as value','name as label' ))->where('user_id', '=', $userId)->get();
+
+        return parent::success($cates);
+
+    }
+
+    public function getCatesByUserIdCode(CategoryRequest $request)
+    {
+        $userId = $request->userId;
+        $code = $request->code;
+
+        $where = array('categories.user_id' => $userId, 'stocks.code'=>$code);
+        $cates = DB::table('categories')
+        ->select(array('categories.id as value','categories.name as label', 'stocks.id'))
+        ->Join('stocks', 'stocks.category_id', '=', 'categories.id')
+        ->where($where)
+        ->get();
+
+        return parent::success($cates);
+    }
 
     public function batchSaveStock( $request,$codeArray ,$category_id){
 
