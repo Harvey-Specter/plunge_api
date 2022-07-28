@@ -24,22 +24,61 @@ class StocksController extends Controller
         return $data;
     }
 
-    public function store(StockRequest $request,Category $category, Stock $stock)
+    private function saveStockByReq(StockRequest $request , Stock $stock , $cateId)
     {
-        $stock->remark = $request->remark;
         $stock->price_id = $request->price_id;
+        $stock->day = now();
         $stock->code = $request->code;
+        $stock->user()->associate($request->user());
+        //$stock->category_id->$request->category_id;
+        $stock->category_id=$cateId;
         $stock->pattern = $request->pattern;
         $stock->market = $request->market;
-        $stock->day = $request->day;
+        $stock->remark = $request->remark;
+        // $stock->created_at=now();
+        // $stock->updated_at=now();
+        $stock->save();
+    }
+    public function store(StockRequest $request,Category $category, Stock $stock)
+    {
+        $id = $request->id;
+        $category_ids = $request->category_ids;
+        // $stock->created_at=now();
+        // $stock->updated_at=now();
+        $ac = 0;
+        if(empty($id)){
+            $this->saveStockByReq($request,$stock,$request->category_id);
+            for($i = 0; $i < count($category_ids); $i++) {
+                if($category_ids[$i] != $request->category_id){
+                    $this->saveStockByReq($request,$stock,$category_ids[$i]);
+                }
+            }
+        }else{
+            $updateDatas=[];
+            for($i = 0; $i < count($category_ids); $i++) {
 
-        $stock->category()->associate($category);
-        $stock->user()->associate($request->user());
+                $row=[
+                    'code' => $request->code,
+                    'price_id' => $request->price_id,
+                    'day' => $request->day,
+                    'user_id' => $request->user_id,
+                    'pattern' => $request->pattern,
+                    'category_id' => $category_ids[$i],
+                    'market' => $request->market,
+                    'remark' => $request->remark,
+                    // 'created_at' => now(),
+                    // 'updated_at' => now(),
+                ];
+                array_push($updateDatas,$row);
+            }
+            $ac = Stock::upsert($updateDatas, ['category_id', 'code'], ['pattern','market','remark']);
+        }
+        return parent::success($ac);
 
-        Log::debug("delStock========".$request->user());
-        //$stock->save();
+        // Log::debug("storeStock========".$id,$category_ids);
+        //
 
-        return new StockResource($stock);
+        //return new StockResource($stock);
     }
     public function destroy(Category $category, Stock $stock)
     {

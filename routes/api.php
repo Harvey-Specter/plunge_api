@@ -47,7 +47,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             // 删除token
             Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
 
-             //getStocksByCategoryId
+            //getStocksByCategoryId
             Route::get('categories/getStocksByCategoryId', [CategoriesController::class, 'getStocksByCategoryId'])->name('categories.getStocksByCategoryId');
 
             Route::get('categories/getCatesByUserId', [CategoriesController::class, 'getCatesByUserId'])->name('categories.getCatesByUserId');
@@ -58,7 +58,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
 
 
             // 分类列表
-            Route::apiResource('categories', CategoriesController::class)->only(['index','show']);            
+            Route::apiResource('categories', CategoriesController::class)->only(['index','show']);
 
             Route::apiResource('categories', CategoriesController::class)->only(['store', 'update', 'destroy']);
             // 发布, 删除股票
