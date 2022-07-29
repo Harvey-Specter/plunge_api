@@ -11,6 +11,7 @@ use App\Http\Resources\StockResource;
 use App\Http\Requests\Api\StockRequest;
 use App\Http\Queries\StockQuery;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class StocksController extends Controller
 {
@@ -26,6 +27,8 @@ class StocksController extends Controller
 
     private function saveStockByReq(StockRequest $request , Stock $stock , $cateId)
     {
+
+        Log::debug($request->code.'====='. $cateId );
         $stock->price_id = $request->price_id;
         $stock->day = now();
         $stock->code = $request->code;
@@ -46,21 +49,27 @@ class StocksController extends Controller
         // $stock->created_at=now();
         // $stock->updated_at=now();
         $ac = 0;
-        if(empty($id)){
-            $this->saveStockByReq($request,$stock,$request->category_id);
-            for($i = 0; $i < count($category_ids); $i++) {
-                if($category_ids[$i] != $request->category_id){
-                    $this->saveStockByReq($request,$stock,$category_ids[$i]);
-                }
-            }
-        }else{
+        // if(empty($id)){
+
+        //     // $this->saveStockByReq($request,$stock,$request->category_id);
+        //     for($i = 0; $i < count($category_ids); $i++) {
+
+        //         $stock->id=null;
+        //         if($category_ids[$i] != $request->category_id){
+        //             $this->saveStockByReq($request,$stock,$category_ids[$i]);
+        //         }
+
+        //     }
+        // }else{
+            $deleted = DB::table('stocks')->where('user_id', $request->user_id)->delete();
             $updateDatas=[];
+            
             for($i = 0; $i < count($category_ids); $i++) {
 
                 $row=[
                     'code' => $request->code,
                     'price_id' => $request->price_id,
-                    'day' => $request->day,
+                    'day' => now(), //$request->day,
                     'user_id' => $request->user_id,
                     'pattern' => $request->pattern,
                     'category_id' => $category_ids[$i],
@@ -72,7 +81,7 @@ class StocksController extends Controller
                 array_push($updateDatas,$row);
             }
             $ac = Stock::upsert($updateDatas, ['category_id', 'code'], ['pattern','market','remark']);
-        }
+        // }
         return parent::success($ac);
 
         // Log::debug("storeStock========".$id,$category_ids);
