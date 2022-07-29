@@ -10,7 +10,8 @@ class UserRequest extends FormRequest
         switch($this->method()) {
             case 'POST':
                 return [
-                    'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name',
+                    //'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name',
+                    'email'=>'email|unique:users,email',
                     'password' => 'required|alpha_dash|min:6',
                     // 'verification_key' => 'required|string',
                     // 'verification_code' => 'required|string',
@@ -20,7 +21,7 @@ class UserRequest extends FormRequest
                 $userId = auth('api')->id();
     
                 return [
-                    'name' => 'between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' .$userId,
+                    'username' => 'between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' .$userId,
                     'email'=>'email|unique:users,email,'.$userId,
                     // 'introduction' => 'max:80',
                     // 'avatar_image_id' => 'exists:images,id,type,avatar,user_id,'.$userId,

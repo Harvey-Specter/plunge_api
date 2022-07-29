@@ -24,17 +24,16 @@ class UsersController extends Controller
     //     }
 
 
+        $name=explode('@',$request->email)[0];
         $user = User::create([
-            'name' => $request->name,
+            'name' => $name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-        
-
         // 清除验证码缓存
         // \Cache::forget($request->verification_key);
 
-        return (new UserResource($user))->showSensitiveFields();
+        return parent::success((new UserResource($user))->showSensitiveFields());
     }
     public function show(User $user, Request $request)
     {
