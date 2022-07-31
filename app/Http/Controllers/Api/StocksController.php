@@ -19,15 +19,36 @@ class StocksController extends Controller
     public function index($category_id, StockQuery $query,StockRequest $request)
     {
         //$stocks = $category->stocks()->paginate();
+        //$where = array('category_id' => $category_id, 'price_id'=>$request->code);
+        $data=array();
+        $del=$request->del;
 
-        $stocks = $query->where('category_id', $category_id)->paginate($request->pageSize);
+        Log::debug('del====='.$del );
+        if($del=='1'){
+            $userId=$request->userId;
+            $stocks = DB::table('stocks')
+            ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ,'categories.name as cateName' ))
+            ->leftJoin('categories', 'stocks.category_id', '=', 'categories.id')
+            ->leftJoin('co_jp', 'stocks.code', '=', 'co_jp.code')
+            ->where('stocks.user_id', $userId)
+            ->where('price_id', '=', 2)
+            ->paginate($request->pageSize);
+            // $data =parent::dataWithPage($stocks);
+        }else{
+            $stocks = DB::table('stocks')
+            ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ))
+            ->LeftJoin('co_jp', 'stocks.code', '=', 'co_jp.code')
+            ->where('category_id', $category_id)
+            ->where('price_id', '<>', 2)
+            // ->orderBy('categories.id', 'desc')
+            ->paginate($request->pageSize);
+        }
         $data =parent::dataWithPage($stocks);
         return $data;
     }
 
     private function saveStockByReq(StockRequest $request , Stock $stock , $cateId)
     {
-
         Log::debug($request->code.'====='. $cateId );
         $stock->price_id = $request->price_id;
         $stock->day = now();
@@ -61,20 +82,21 @@ class StocksController extends Controller
 
         //     }
         // }else{
-            $deleted = DB::table('stocks')->where('user_id', $request->user_id)->delete();
-            $updateDatas=[];
-            
-            for($i = 0; $i < count($category_ids); $i++) {
 
+            $where = array('user_id' => $request->user_id, 'code'=>$request->code);
+            $deleted = DB::table('stocks')->where($where)->delete();
+            $updateDatas=[];
+            for($i = 0; $i < count($category_ids); $i++) {
                 $row=[
                     'code' => $request->code,
-                    'price_id' => $request->price_id,
-                    'day' => now(), //$request->day,
+                    'price_id' => 0,
+                    'day' => now(), //  $request->day,
                     'user_id' => $request->user_id,
                     'pattern' => $request->pattern,
                     'category_id' => $category_ids[$i],
                     'market' => $request->market,
                     'remark' => $request->remark,
+                    'score' => $request->score,
                     // 'created_at' => now(),
                     // 'updated_at' => now(),
                 ];
@@ -83,11 +105,6 @@ class StocksController extends Controller
             $ac = Stock::upsert($updateDatas, ['category_id', 'code'], ['pattern','market','remark']);
         // }
         return parent::success($ac);
-
-        // Log::debug("storeStock========".$id,$category_ids);
-        //
-
-        //return new StockResource($stock);
     }
     public function destroy(Category $category, Stock $stock)
     {
@@ -107,8 +124,14 @@ class StocksController extends Controller
         $ids=$request->ids;
         Log::debug("delStock========".$ids);
         $idsArray = explode(',',$ids);
+
         //$deleted = DB::table('stocks')->whereIn('id', $idsArray)->delete();
-        Stock::destroy($idsArray);
+        // price_id =2 is delflag
+        $affected = DB::table('stocks')
+              ->whereIn('id', $idsArray)
+              ->update(['price_id' => 2]);
+
+        //Stock::destroy($idsArray);
         return parent::success(204);
     }
 }

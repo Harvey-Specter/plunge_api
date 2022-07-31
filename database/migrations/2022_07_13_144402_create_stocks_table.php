@@ -19,9 +19,13 @@ return new class extends Migration
             $table->string('market');
             $table->string('remark')->nullable ();
             $table->timestamps();
-        });
-	}
+            $table->tinyInteger('score')->unsigned()->default(0);
 
+            $table->unique(['category_id','code']);
+        });
+
+
+	}
 	public function down()
 	{
 		Schema::drop('stocks');

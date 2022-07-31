@@ -13,14 +13,16 @@ class AuthorizationsController extends Controller
 {
     public function store(AuthorizationRequest $request)
     {
-        $username = $request->username;
+        $email = $request->email;
 
-        filter_var($username, FILTER_VALIDATE_EMAIL) ?
-            $credentials['email'] = $username :
-            $credentials['phone'] = $username;
+        //filter_var($email, FILTER_VALIDATE_EMAIL) ?
+            // $credentials['email'] = $username :
+            //$credentials['phone'] = $username;
 
-        //$credentials['email'] = $username ;
+        $credentials['email'] = $email ;
         $credentials['password'] = $request->password;
+
+        // Log::debug("email========",$email);
 
         if (!$token = \Auth::guard('api')->attempt($credentials)) {
             throw new AuthenticationException('用户名或密码错误');
