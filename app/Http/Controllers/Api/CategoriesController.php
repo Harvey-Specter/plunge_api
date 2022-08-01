@@ -32,6 +32,28 @@ class CategoriesController extends Controller
 
     }
 
+    public function industryList(CategoryRequest $request)
+    {
+       Log::debug('industryList------------------1--------');
+
+       // DB::enableQueryLog();
+       $industry = DB::table('co_jp')
+       ->select(array('cate33', 'cate33_code'))
+       ->selectRaw("COUNT(1) as cnt, SUM(IF(size LIKE 'TOPIX Large70%',1,0))l70,SUM(IF(size LIKE 'TOPIX Core30%',1,0))c30,SUM(IF(size LIKE 'TOPIX Mid400%',1,0))m400,SUM(IF(size LIKE 'TOPIX Small 1%',1,0))s1,SUM(IF(size LIKE 'TOPIX Small 2%',1,0))s2,SUM(IF(size LIKE '-%',1,0))other")
+       ->where('market', 'not like', "ETF%")
+       ->where('market', 'not like', "REIT%")
+       ->where('market', 'not like', "-%")
+       ->where('market', 'not like', "出資証券%")
+       ->groupBy('cate33','cate33_code')
+       ->orderByDesc('cnt')
+       ->paginate($request->pageSize);
+
+       //$logs = DB::getQueryLog();
+       //print_r($logs);
+
+        return parent::dataWithPage($industry);
+    }
+
     public function getStocksByCategoryId(CategoryRequest $request)
     {
         $cateId = $request->id;

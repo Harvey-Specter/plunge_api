@@ -53,6 +53,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             Route::get('categories/getCatesByUserId', [CategoriesController::class, 'getCatesByUserId'])->name('categories.getCatesByUserId');
             Route::get('categories/getCatesByUserIdCode', [CategoriesController::class, 'getCatesByUserIdCode'])->name('categories.getCatesByUserIdCode');
 
+            Route::get('categories/industryList', [CategoriesController::class, 'industryList'])->name('categories.industryList');
+
             Route::post('categories/delCate', [CategoriesController::class, 'delCate'])->name('categories.delCate');
             Route::post('stocks/del', [StocksController::class, 'delStock'])->name('stocks.delStock');
 
