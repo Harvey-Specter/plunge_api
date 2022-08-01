@@ -23,6 +23,7 @@ class CategoriesController extends Controller
         $cate = DB::table('categories')
         ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
         ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
+        ->where('price_id','<>',2)
         ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
         ->orderBy('categories.id', 'desc')
         ->paginate($request->pageSize);

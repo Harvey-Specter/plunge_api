@@ -134,4 +134,29 @@ class StocksController extends Controller
         //Stock::destroy($idsArray);
         return parent::success(204);
     }
+
+    public function recStock(StockRequest $request, Stock $stock)
+    {
+        // $this->authorize('destroy', $stock);
+        $ids=$request->ids;
+        Log::debug("recStock========".$ids);
+        $idsArray = explode(',',$ids);
+
+        $affected = DB::table('stocks')
+              ->whereIn('id', $idsArray)
+              ->update(['price_id' => 1]);
+
+        //Stock::destroy($idsArray);
+        return parent::success(204);
+    }
+
+    public function rmfStock(StockRequest $request, Stock $stock)
+    {
+        // $this->authorize('destroy', $stock);
+        $ids=$request->ids;
+        Log::debug("recStock========".$ids);
+        $idsArray = explode(',',$ids);
+        Stock::destroy($idsArray);
+        return parent::success(204);
+    }
 }

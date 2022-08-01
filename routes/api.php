@@ -57,6 +57,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
 
             Route::post('categories/delCate', [CategoriesController::class, 'delCate'])->name('categories.delCate');
             Route::post('stocks/del', [StocksController::class, 'delStock'])->name('stocks.delStock');
+            Route::post('stocks/rec', [StocksController::class, 'recStock'])->name('stocks.recStock');
+            Route::post('stocks/rmf', [StocksController::class, 'rmfStock'])->name('stocks.rmfStock');
 
 
             // 分类列表
