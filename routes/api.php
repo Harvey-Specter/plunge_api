@@ -52,15 +52,12 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
 
             Route::get('categories/getCatesByUserId', [CategoriesController::class, 'getCatesByUserId'])->name('categories.getCatesByUserId');
             Route::get('categories/getCatesByUserIdCode', [CategoriesController::class, 'getCatesByUserIdCode'])->name('categories.getCatesByUserIdCode');
-
             Route::get('categories/industryList', [CategoriesController::class, 'industryList'])->name('categories.industryList');
-
             Route::post('categories/delCate', [CategoriesController::class, 'delCate'])->name('categories.delCate');
             Route::post('stocks/del', [StocksController::class, 'delStock'])->name('stocks.delStock');
             Route::post('stocks/rec', [StocksController::class, 'recStock'])->name('stocks.recStock');
             Route::post('stocks/rmf', [StocksController::class, 'rmfStock'])->name('stocks.rmfStock');
-
-
+            Route::get('stocks/getStockByCode', [StocksController::class, 'getStockByCode'])->name('stocks.getStockByCode');
             // 分类列表
             Route::apiResource('categories', CategoriesController::class)->only(['index','show']);
 
