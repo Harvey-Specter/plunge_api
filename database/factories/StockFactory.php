@@ -20,7 +20,8 @@ class StockFactory extends Factory
             'user_id' => rand(1, 10),
             'category_id' => rand(1, 20),
             'pattern' => $this->faker->randomElement([1, 2, 3, 4]),
-            'market' => $this->faker->randomElement([1, 2])
+            'market' => $this->faker->randomElement([1, 2]),
+            'score' => rand(0,5),
         ];
     }
 }

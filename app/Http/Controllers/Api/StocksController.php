@@ -15,6 +15,22 @@ use Illuminate\Support\Facades\DB;
 
 class StocksController extends Controller
 {
+
+    public function getStockByCode(StockRequest $request)
+    {
+        $data=array();
+        $code=$request->code;
+        Log::debug('code====='.$code."----from----".$from );
+
+        $stocks = DB::table('co_jp')
+        ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size' ))
+        ->where('co_jp.code', '=', $code)
+        ->get();
+
+        $data =parent::success($stocks);
+        return $data;
+    }
+
     // public function index(Category $category)
     public function index($category_id, StockQuery $query,StockRequest $request)
     {
@@ -22,9 +38,24 @@ class StocksController extends Controller
         //$where = array('category_id' => $category_id, 'price_id'=>$request->code);
         $data=array();
         $del=$request->del;
+        $from=$request->from;
 
-        Log::debug('del====='.$del );
-        if($del=='1'){
+        Log::debug('del====='.$del."----from----".$from );
+        
+        if($from=="industry"){
+            $indId=$request->indId;
+            $size=$request->size;
+//SELECT co_jp.code,co_jp.name,co_jp.market,cate33,size,COUNT(stocks.id) FROM co_jp LEFT JOIN stocks ON co_jp.code=stocks.code AND stocks.price_id<>2 WHERE size_code='7' AND cate33_code=50 GROUP BY co_jp.code,co_jp.name,co_jp.market,cate33,size
+            
+            $stocks = DB::table('co_jp')
+            ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
+            ->leftJoin('stocks', 'co_jp.cpde', '=', 'stocks.code')
+            ->where('co_jp.size_code', $size)
+            ->where('co_jp.cate33_code', '=', $indid)
+            ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
+            ->paginate($request->pageSize);
+
+        }else if($del=='1'){
             $userId=$request->userId;
             $stocks = DB::table('stocks')
             ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ,'categories.name as cateName' ))
