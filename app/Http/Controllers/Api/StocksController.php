@@ -39,8 +39,22 @@ class StocksController extends Controller
         $del=$request->del;
         $from=$request->from;
 
-        Log::debug('del====='.$del."----from----".$from );
-        
+        // Log::debug('del====='.$del."----from----".$from );
+
+        $name=trim($request->name);
+        //$sNameWhere = ' ';
+        $cNameWhere = ' ';
+        if(!empty($name)){
+            //$sNameWhere = " and stocks.name like '%".$name."%' "; 
+            $cNameWhere = " and co_jp.name like '%".$name."%' "; 
+        }
+        $code=trim($request->code);
+        $cCodeWhere = ' ';
+        $sCodeWhere = ' ';
+        if(!empty($code)){
+            $sCodeWhere = " and stocks.code like '%".$code."%' "; 
+            $cCodeWhere = " and co_jp.code like '%".$code."%' "; 
+        }
         if($from=="industry"){
             $indId=$request->indId;
             $size=$request->size;
@@ -50,15 +64,14 @@ if($size=='0'){
     $stocks = DB::table('co_jp')
     ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
     ->leftJoin('stocks', 'co_jp.code', '=', 'stocks.code')
-    ->where('co_jp.cate33_code', '=', $indId)
+    ->whereRaw('co_jp.cate33_code = '. $indId .$cCodeWhere .$cNameWhere)
     ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
     ->paginate($request->pageSize);
 }else{
     $stocks = DB::table('co_jp')
     ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
     ->leftJoin('stocks', 'co_jp.code', '=', 'stocks.code')
-    ->where('co_jp.size_code', $size)
-    ->where('co_jp.cate33_code', '=', $indId)
+    ->whereRaw(' co_jp.cate33_code ='. $indId." and co_jp.size_code = '".$size ."' ". $cCodeWhere. $cNameWhere)
     ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
     ->paginate($request->pageSize);
 }
@@ -69,16 +82,16 @@ if($size=='0'){
             ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ,'categories.name as cateName' ))
             ->leftJoin('categories', 'stocks.category_id', '=', 'categories.id')
             ->leftJoin('co_jp', 'stocks.code', '=', 'co_jp.code')
-            ->where('stocks.user_id', $userId)
-            ->where('price_id', '=', 2)
+            ->whereRaw('stocks.user_id='.$userId . ' and price_id=2 '.$sCodeWhere.$cNameWhere)
+            //->where('price_id', '=', 2)
             ->paginate($request->pageSize);
             // $data =parent::dataWithPage($stocks);
         }else{
             $stocks = DB::table('stocks')
             ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ))
             ->LeftJoin('co_jp', 'stocks.code', '=', 'co_jp.code')
-            ->where('category_id', $category_id)
-            ->where('price_id', '<>', 2)
+            ->whereRaw('category_id='.$category_id.' and price_id<>2 ' . $sCodeWhere.$cNameWhere  )
+            // ->where('price_id', '<>', 2)
             // ->orderBy('categories.id', 'desc')
             ->paginate($request->pageSize);
         }
@@ -96,7 +109,7 @@ if($size=='0'){
         //$stock->category_id->$request->category_id;
         $stock->category_id=$cateId;
         $stock->pattern = $request->pattern;
-        $stock->market = $request->market;
+        $stock->market = 0;
         $stock->remark = $request->remark;
         // $stock->created_at=now();
         // $stock->updated_at=now();
@@ -133,7 +146,8 @@ if($size=='0'){
                     'user_id' => $request->user_id,
                     'pattern' => $request->pattern,
                     'category_id' => $category_ids[$i],
-                    'market' => $request->market,
+                    //'market' => $request->market,
+                    'market' => 0,
                     'remark' => $request->remark,
                     'score' => $request->score,
                     // 'created_at' => now(),

@@ -20,10 +20,15 @@ class CategoriesController extends Controller
 
         //select a.id,a.name,a.remark,a.user_id,a.created_at , count(b.code)cnt from categories a ,stocks b where b.category_id=a.id group by a.id,a.name,a.remark,a.user_id,a.created_at limit 5 ;
 
+        $name=trim($request->name);
+$nameWhere = ' ';
+if(!empty($name)){
+    $nameWhere = " and categories.name like '%".$name."%' "; 
+}
         $cate = DB::table('categories')
         ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
         ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
-        ->where('price_id','<>',2)
+        ->whereRaw('price_id<>2 '.$nameWhere )
         ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
         ->orderBy('categories.id', 'desc')
         ->paginate($request->pageSize);
@@ -37,14 +42,22 @@ class CategoriesController extends Controller
     {
        Log::debug('industryList------------------1--------');
 
+       $name=trim($request->cate33);
+       $nameWhere = ' ';
+       if(!empty($name)){
+           $nameWhere = " and co_jp.cate33 like '%".$name."%' "; 
+       }
+
+       $whereStr=" market not like 'ETF%' and market not like 'REIT%' and market not like '-%' and market not like '出資証券%' " . $nameWhere ; 
        // DB::enableQueryLog();
        $industry = DB::table('co_jp')
        ->select(array('cate33', 'cate33_code'))
        ->selectRaw("COUNT(1) as cnt, SUM(IF(size LIKE 'TOPIX Large70%',1,0))l70,SUM(IF(size LIKE 'TOPIX Core30%',1,0))c30,SUM(IF(size LIKE 'TOPIX Mid400%',1,0))m400,SUM(IF(size LIKE 'TOPIX Small 1%',1,0))s1,SUM(IF(size LIKE 'TOPIX Small 2%',1,0))s2,SUM(IF(size LIKE '-%',1,0))other")
-       ->where('market', 'not like', "ETF%")
-       ->where('market', 'not like', "REIT%")
-       ->where('market', 'not like', "-%")
-       ->where('market', 'not like', "出資証券%")
+    //    ->where('market', 'not like', "ETF%")
+    //    ->where('market', 'not like', "REIT%")
+    //    ->where('market', 'not like', "-%")
+    //    ->where('market', 'not like', "出資証券%")
+       ->whereRaw( $whereStr )
        ->groupBy('cate33','cate33_code')
        ->orderByDesc('cnt')
        ->paginate($request->pageSize);
