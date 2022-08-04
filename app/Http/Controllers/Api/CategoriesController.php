@@ -35,7 +35,14 @@ if(!empty($name)){
 
         // $all = Category::paginate($request->pageSize);
         return parent::dataWithPage($cate);
-
+    }
+    public function getAll(CategoryRequest $request)
+    {
+        $cate = DB::table('categories')
+        ->select(array('categories.id','categories.name'))
+        ->orderBy('categories.name')
+        ->get();
+        return parent::success($cate);
     }
 
     public function industryList(CategoryRequest $request)
@@ -104,6 +111,22 @@ if(!empty($name)){
         return parent::success($cates);
     }
 
+    //DB::insert('insert into test (id, name, email, password) values (?, ?, ? , ? )',[1, 'Laravel','laravel@test.com','Laravel']);
+    //INSERT INTO crm_promotion_orders(PROMOTIONORDERS_ID,PHONE,ORDER_ID)
+	// select tb.CUSTOMER_UUID, tb.CUSTOMER_MOBILE,tb.PROJECT_ID from(SELECT ccm.CUSTOMER_UUID,ccm.CUSTOMER_MOBILE,ccm.PROJECT_ID FROM crm_customer_manage ccm 
+	// where ccm.PROJECT_ID = '1429006975654264834' and ccm.CUSTOMER_MOBILE = '13773262930') AS tb
+
+    public function clone(CategoryRequest $request ,Category $category){
+
+        $category->fill($request->all());
+        $category->user_id = $request->user()->id;
+        $category->name = $request->name.'_COPY';
+        $category->save();
+
+        $rs=DB::insert('insert into stocks (price_id, day, code, user_id,category_id,pattern,market,remark,created_at) select price_id,day,code,'.$request->user()->id.','.$category->id.', pattern,market,remark , created_at from stocks where category_id='.$request->id);
+
+        return parent::success($rs);
+    }
     public function batchSaveStock( $request,$codeArray ,$category_id){
 
         // Log::debug('An informational message.-----',$codeArray);
