@@ -23,7 +23,7 @@ class CategoriesController extends Controller
         $name=trim($request->name);
 $nameWhere = ' ';
 if(!empty($name)){
-    $nameWhere = " and categories.name like '%".$name."%' "; 
+    $nameWhere = " and categories.name like '%".$name."%' ";
 }
         $cate = DB::table('categories')
         ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
@@ -39,7 +39,7 @@ if(!empty($name)){
     public function getAll(CategoryRequest $request)
     {
         $cate = DB::table('categories')
-        ->select(array('categories.id','categories.name'))
+        ->select(array('categories.id as value','categories.name as label'))
         ->orderBy('categories.name')
         ->get();
         return parent::success($cate);
@@ -52,10 +52,10 @@ if(!empty($name)){
        $name=trim($request->cate33);
        $nameWhere = ' ';
        if(!empty($name)){
-           $nameWhere = " and co_jp.cate33 like '%".$name."%' "; 
+           $nameWhere = " and co_jp.cate33 like '%".$name."%' ";
        }
 
-       $whereStr=" market not like 'ETF%' and market not like 'REIT%' and market not like '-%' and market not like '出資証券%' " . $nameWhere ; 
+       $whereStr=" market not like 'ETF%' and market not like 'REIT%' and market not like '-%' and market not like '出資証券%' " . $nameWhere ;
        // DB::enableQueryLog();
        $industry = DB::table('co_jp')
        ->select(array('cate33', 'cate33_code'))
@@ -113,7 +113,7 @@ if(!empty($name)){
 
     //DB::insert('insert into test (id, name, email, password) values (?, ?, ? , ? )',[1, 'Laravel','laravel@test.com','Laravel']);
     //INSERT INTO crm_promotion_orders(PROMOTIONORDERS_ID,PHONE,ORDER_ID)
-	// select tb.CUSTOMER_UUID, tb.CUSTOMER_MOBILE,tb.PROJECT_ID from(SELECT ccm.CUSTOMER_UUID,ccm.CUSTOMER_MOBILE,ccm.PROJECT_ID FROM crm_customer_manage ccm 
+	// select tb.CUSTOMER_UUID, tb.CUSTOMER_MOBILE,tb.PROJECT_ID from(SELECT ccm.CUSTOMER_UUID,ccm.CUSTOMER_MOBILE,ccm.PROJECT_ID FROM crm_customer_manage ccm
 	// where ccm.PROJECT_ID = '1429006975654264834' and ccm.CUSTOMER_MOBILE = '13773262930') AS tb
 
     public function clone(CategoryRequest $request ,Category $category){
