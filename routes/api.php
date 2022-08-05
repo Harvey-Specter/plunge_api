@@ -51,6 +51,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             Route::get('categories/getStocksByCategoryId', [CategoriesController::class, 'getStocksByCategoryId'])->name('categories.getStocksByCategoryId');
             Route::post('categories/clone', [CategoriesController::class, 'clone'])->name('categories.clone');
             Route::get('categories/getAll', [CategoriesController::class, 'getAll'])->name('categories.getAll');
+            Route::get('categories/getAnalyzeByCategoryId', [CategoriesController::class, 'getAnalyzeByCategoryId'])->name('categories.getAnalyzeByCategoryId');
 
             Route::get('categories/getCatesByUserId', [CategoriesController::class, 'getCatesByUserId'])->name('categories.getCatesByUserId');
             Route::get('categories/getCatesByUserIdCode', [CategoriesController::class, 'getCatesByUserIdCode'])->name('categories.getCatesByUserIdCode');

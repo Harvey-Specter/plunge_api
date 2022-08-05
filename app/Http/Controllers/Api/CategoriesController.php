@@ -85,6 +85,30 @@ if(!empty($name)){
         return parent::success($stockCodes);
 
     }
+
+    public function getAnalyzeByCategoryId(CategoryRequest $request)
+    {
+        $cateId = $request->id;
+        $where = array('stocks.category_id' => $cateId);
+
+        $ind = DB::table('stocks')
+        ->select(array('co_jp.cate33 as name', DB::raw('COUNT(1) as value')))
+        ->Join('co_jp', 'stocks.code', '=', 'co_jp.code')
+        ->where($where)
+        ->groupBy('co_jp.cate33')->get();;
+
+        $size = DB::table('stocks')
+        ->select(array('co_jp.size as name', DB::raw('COUNT(1) as value')))
+        ->Join('co_jp', 'stocks.code', '=', 'co_jp.code')
+        ->where($where)
+        ->groupBy('co_jp.size')->get();
+
+        $data=['ind'=>$ind,'size'=>$size];
+
+        return parent::success($data);
+
+    }
+
     public function getCatesByUserId(CategoryRequest $request)
     {
         $userId = $request->userId;
