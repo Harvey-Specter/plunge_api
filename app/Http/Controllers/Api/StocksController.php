@@ -45,21 +45,21 @@ class StocksController extends Controller
         //$sNameWhere = ' ';
         $cNameWhere = ' ';
         if(!empty($name)){
-            //$sNameWhere = " and stocks.name like '%".$name."%' "; 
-            $cNameWhere = " and co_jp.name like '%".$name."%' "; 
+            //$sNameWhere = " and stocks.name like '%".$name."%' ";
+            $cNameWhere = " and co_jp.name like '%".$name."%' ";
         }
         $code=trim($request->code);
         $cCodeWhere = ' ';
         $sCodeWhere = ' ';
         if(!empty($code)){
-            $sCodeWhere = " and stocks.code like '%".$code."%' "; 
-            $cCodeWhere = " and co_jp.code like '%".$code."%' "; 
+            $sCodeWhere = " and stocks.code like '%".$code."%' ";
+            $cCodeWhere = " and co_jp.code like '%".$code."%' ";
         }
         if($from=="industry"){
             $indId=$request->indId;
             $size=$request->size;
 //SELECT co_jp.code,co_jp.name,co_jp.market,cate33,size,COUNT(stocks.id) FROM co_jp LEFT JOIN stocks ON co_jp.code=stocks.code AND stocks.price_id<>2 WHERE size_code='7' AND cate33_code=50 GROUP BY co_jp.code,co_jp.name,co_jp.market,cate33,size
-            
+
 if($size=='0'){
     $stocks = DB::table('co_jp')
     ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
@@ -75,7 +75,7 @@ if($size=='0'){
     ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
     ->paginate($request->pageSize);
 }
-            
+
         }else if($del=='1'){
             $userId=$request->userId;
             $stocks = DB::table('stocks')
@@ -159,6 +159,52 @@ if($size=='0'){
         // }
         return parent::success($ac);
     }
+
+    public function saveStock(StockRequest $request, Stock $stock , Category $category)
+    {
+        $newCateName=$request->newCateName;
+
+        if(!empty($newCateName)){
+            $category->name=$newCateName;
+            $category->user_id = $request->user()->id;
+            $category->save();
+        }
+        //--------------
+
+        $id = $request->id;
+        $category_ids = $request->category_ids;
+
+        // print_r($category_ids);
+        Log::debug("saveStock==========".count($category_ids));
+        if(!empty($newCateName)){
+            array_push( $category_ids, $category->id);
+        }
+
+        $ac = 0;
+        //Log::debug("saveStock=====2=====".$category_ids);
+        $where = array('user_id' => $request->user_id, 'code'=>$request->code);
+        $deleted = DB::table('stocks')->where($where)->delete();
+        $updateDatas=[];
+        for($i = 0; $i < count($category_ids); $i++) {
+
+            Log::debug("category_id======".$i."====".$category_ids[$i]);
+            $row=[
+                'code' => $request->code,
+                'price_id' => 0,
+                'day' => now(), //$request->day,
+                'user_id' => $request->user_id,
+                'pattern' => empty($request->pattern) ?'0':$request->pattern,
+                'category_id' => $category_ids[$i],
+                'market' => 0,
+                'remark' => $request->remark,
+                'score' => $request->score,
+            ];
+            array_push($updateDatas,$row);
+        }
+        $ac = Stock::upsert($updateDatas, ['category_id', 'code'], ['pattern','market','remark']);
+        return parent::success($ac);
+    }
+
     public function destroy(Category $category, Stock $stock)
     {
         if ($stock->category_id != $category->id) {

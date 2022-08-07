@@ -61,6 +61,8 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             Route::post('stocks/rec', [StocksController::class, 'recStock'])->name('stocks.recStock');
             Route::post('stocks/rmf', [StocksController::class, 'rmfStock'])->name('stocks.rmfStock');
             Route::get('stocks/getStockByCode', [StocksController::class, 'getStockByCode'])->name('stocks.getStockByCode');
+            Route::post('stocks/saveStock', [StocksController::class, 'saveStock'])->name('stocks.saveStock');
+
             // 分类列表
             Route::apiResource('categories', CategoriesController::class)->only(['index','show']);
 
