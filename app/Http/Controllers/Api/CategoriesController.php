@@ -26,8 +26,14 @@ if(!empty($name)){
     $nameWhere = " and categories.name like '%".$name."%' ";
 }
         $cate = DB::table('categories')
-        ->select(array('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
+        ->select(array('users.name as user_name','categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
         ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
+        // ->leftJoin('stocks',function ($join) {
+        //     $join->on('stocks.category_id', '=', 'categories.id')
+        //         ->where('stocks.price_id', '!=', 2);
+        // })
+        
+        ->leftJoin('users' , 'categories.user_id','=','users.id')
         ->whereRaw('price_id<>2 '.$nameWhere )
         ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
         ->orderBy('categories.id', 'desc')
