@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\Api\UserRequest;
@@ -22,13 +23,17 @@ class UsersController extends Controller
     //         // 返回401
     //         throw new AuthenticationException('验证码错误');
     //     }
-
-
         $name=explode('@',$request->email)[0];
+
         $user = User::create([
             'name' => $name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
+        ]);
+        $cate = Category::create([
+            'name' => $name."'FirstBlock",
+            'remark' => 'MyFirstBlock is created by system at register',
+            'user_id' => $user->id
         ]);
         // 清除验证码缓存
         // \Cache::forget($request->verification_key);

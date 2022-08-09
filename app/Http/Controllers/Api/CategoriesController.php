@@ -17,27 +17,31 @@ class CategoriesController extends Controller
     public function index(CategoryRequest $request)
     {
         // return CategoryResource::collection(Category::all());
-
-        //select a.id,a.name,a.remark,a.user_id,a.created_at , count(b.code)cnt from categories a ,stocks b where b.category_id=a.id group by a.id,a.name,a.remark,a.user_id,a.created_at limit 5 ;
-
         $name=trim($request->name);
-$nameWhere = ' ';
-if(!empty($name)){
-    $nameWhere = " and categories.name like '%".$name."%' ";
-}
+        $userId = $request->userId;
+        $nameWhere = ' ';
+        if(!empty($name)){
+            $nameWhere = " and categories.name like '%".$name."%' ";
+        }
+        if(!empty($userId)){
+            $nameWhere = " and categories.user_id = ".$userId." ";
+        }
+        DB::connection()->enableQueryLog();
+
         $cate = DB::table('categories')
-        ->select(array('users.name as user_name','categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('COUNT(stocks.id) as stock_count')))
-        ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
+        ->select(array('users.name as user_name','categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('(SELECT COUNT(1) FROM stocks WHERE `categories`.`id` = `stocks`.`category_id` AND price_id<>2  ) AS stock_count ')))
+        // ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
         // ->leftJoin('stocks',function ($join) {
         //     $join->on('stocks.category_id', '=', 'categories.id')
         //         ->where('stocks.price_id', '!=', 2);
         // })
-        
         ->leftJoin('users' , 'categories.user_id','=','users.id')
-        ->whereRaw('price_id<>2 '.$nameWhere )
+        ->whereRaw('1=1'.$nameWhere )
         ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
         ->orderBy('categories.id', 'desc')
         ->paginate($request->pageSize);
+
+        
 
         // $all = Category::paginate($request->pageSize);
         return parent::dataWithPage($cate);
