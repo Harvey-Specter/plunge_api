@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return File::get(public_path() . '/dist-dev/index.html');
 });
 
 // Auth::routes();
