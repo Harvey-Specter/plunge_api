@@ -26,10 +26,10 @@ class CategoriesController extends Controller
         if(!empty($userId)){
             $nameWhere = " and categories.user_id = ".$userId." ";
         }
-        DB::connection()->enableQueryLog();
+        //DB::connection()->enableQueryLog();
 
         $cate = DB::table('categories')
-        ->select(array('users.name as user_name','categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('(SELECT COUNT(1) FROM stocks WHERE `categories`.`id` = `stocks`.`category_id` AND price_id<>2  ) AS stock_count ')))
+        ->select(array('users.name as user_name','categories.id','categories.name','categories.remark','categories.user_id','categories.created_at' , DB::raw('(SELECT COUNT(1) FROM stocks WHERE categories.id = stocks.category_id AND price_id<>2  ) AS stock_count ')))
         // ->leftJoin('stocks', 'stocks.category_id', '=', 'categories.id')
         // ->leftJoin('stocks',function ($join) {
         //     $join->on('stocks.category_id', '=', 'categories.id')
@@ -37,11 +37,11 @@ class CategoriesController extends Controller
         // })
         ->leftJoin('users' , 'categories.user_id','=','users.id')
         ->whereRaw('1=1'.$nameWhere )
-        ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at')
+        ->groupBy('categories.id','categories.name','categories.remark','categories.user_id','categories.created_at','users.name')
         ->orderBy('categories.id', 'desc')
         ->paginate($request->pageSize);
 
-        
+        //dump(DB::getQueryLog());
 
         // $all = Category::paginate($request->pageSize);
         return parent::dataWithPage($cate);
@@ -69,7 +69,9 @@ class CategoriesController extends Controller
        // DB::enableQueryLog();
        $industry = DB::table('co_jp')
        ->select(array('cate33', 'cate33_code'))
-       ->selectRaw("COUNT(1) as cnt, SUM(IF(size LIKE 'TOPIX Large70%',1,0))l70,SUM(IF(size LIKE 'TOPIX Core30%',1,0))c30,SUM(IF(size LIKE 'TOPIX Mid400%',1,0))m400,SUM(IF(size LIKE 'TOPIX Small 1%',1,0))s1,SUM(IF(size LIKE 'TOPIX Small 2%',1,0))s2,SUM(IF(size LIKE '-%',1,0))other")
+       ->selectRaw("COUNT(1) as cnt, SUM(case when size = 'TOPIX Large70' then 1 else 0 end )l70,SUM(case when size = 'TOPIX Core30' then 1 else 0 end )c30,SUM(case when size = 'TOPIX Mid400' then 1 else 0 end )m400,SUM(case when size = 'TOPIX Small 1' then 1 else 0 end )s1,SUM(case when size = 'TOPIX Small 2' then 1 else 0 end )s2,SUM(case when size = '-' then 1 else 0 end )other ")
+
+       //->selectRaw("COUNT(1) as cnt, SUM(IF(size LIKE 'TOPIX Large70%',1,0))l70,SUM(IF(size LIKE 'TOPIX Core30%',1,0))c30,SUM(IF(size LIKE 'TOPIX Mid400%',1,0))m400,SUM(IF(size LIKE 'TOPIX Small 1%',1,0))s1,SUM(IF(size LIKE 'TOPIX Small 2%',1,0))s2,SUM(IF(size LIKE '-%',1,0))other")
     //    ->where('market', 'not like', "ETF%")
     //    ->where('market', 'not like', "REIT%")
     //    ->where('market', 'not like', "-%")
