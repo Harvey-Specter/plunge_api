@@ -60,21 +60,21 @@ class StocksController extends Controller
             $size=$request->size;
 //SELECT co_jp.code,co_jp.name,co_jp.market,cate33,size,COUNT(stocks.id) FROM co_jp LEFT JOIN stocks ON co_jp.code=stocks.code AND stocks.price_id<>2 WHERE size_code='7' AND cate33_code=50 GROUP BY co_jp.code,co_jp.name,co_jp.market,cate33,size
 
-if($size=='0'){
-    $stocks = DB::table('co_jp')
-    ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
-    ->leftJoin('stocks', 'co_jp.code', '=', 'stocks.code')
-    ->whereRaw('co_jp.cate33_code = '. $indId .$cCodeWhere .$cNameWhere)
-    ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
-    ->paginate($request->pageSize);
-}else{
-    $stocks = DB::table('co_jp')
-    ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
-    ->leftJoin('stocks', 'co_jp.code', '=', 'stocks.code')
-    ->whereRaw(' co_jp.cate33_code ='. $indId." and co_jp.size_code = '".$size ."' ". $cCodeWhere. $cNameWhere)
-    ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
-    ->paginate($request->pageSize);
-}
+            if($size=='0'){
+                $stocks = DB::table('co_jp')
+                ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
+                ->leftJoin('stocks', 'co_jp.code', '=', 'stocks.code')
+                ->whereRaw("co_jp.cate33_code = '". $indId."' " .$cCodeWhere .$cNameWhere)
+                ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
+                ->paginate($request->pageSize);
+            }else{
+                $stocks = DB::table('co_jp')
+                ->select(array( 'co_jp.code','co_jp.name','co_jp.market','cate33','size',DB::raw('COUNT(stocks.id) as stock_count') ))
+                ->leftJoin('stocks', 'co_jp.code', '=', 'stocks.code')
+                ->whereRaw(" co_jp.cate33_code ='". $indId."' and co_jp.size_code = '".$size ."' ". $cCodeWhere. $cNameWhere)
+                ->groupBy('co_jp.code','co_jp.name','co_jp.market','cate33','size')
+                ->paginate($request->pageSize);
+            }
 
         }else if($del=='1'){
             $userId=$request->userId;
