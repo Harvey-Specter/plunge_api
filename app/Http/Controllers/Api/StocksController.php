@@ -48,6 +48,13 @@ class StocksController extends Controller
             //$sNameWhere = " and stocks.name like '%".$name."%' ";
             $cNameWhere = " and co_jp.name like '%".$name."%' ";
         }
+
+        $score=trim($request->score);
+        $scoreWhere = ' ';
+        if(!empty($score)){
+            $scoreWhere = " and stocks.score = ".$score." ";
+        }
+
         $code=trim($request->code);
         $cCodeWhere = ' ';
         $sCodeWhere = ' ';
@@ -82,7 +89,7 @@ class StocksController extends Controller
             ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ,'categories.name as cateName' ))
             ->leftJoin('categories', 'stocks.category_id', '=', 'categories.id')
             ->leftJoin('co_jp', 'stocks.code', '=', 'co_jp.code')
-            ->whereRaw('stocks.user_id='.$userId . ' and price_id=2 '.$sCodeWhere.$cNameWhere)
+            ->whereRaw('stocks.user_id='.$userId . ' and price_id=2 '.$sCodeWhere.$cNameWhere.$scoreWhere)
             //->where('price_id', '=', 2)
             ->paginate($request->pageSize);
             // $data =parent::dataWithPage($stocks);
@@ -90,7 +97,7 @@ class StocksController extends Controller
             $stocks = DB::table('stocks')
             ->select(array('stocks.id','stocks.day','stocks.code','stocks.user_id','stocks.category_id','stocks.pattern','stocks.market','stocks.remark','stocks.created_at' ,'co_jp.name','co_jp.cate33' ,'stocks.score','co_jp.size' ))
             ->LeftJoin('co_jp', 'stocks.code', '=', 'co_jp.code')
-            ->whereRaw('category_id='.$category_id.' and price_id<>2 ' . $sCodeWhere.$cNameWhere  )
+            ->whereRaw('category_id='.$category_id.' and price_id<>2 ' . $sCodeWhere.$cNameWhere .$scoreWhere )
             // ->where('price_id', '<>', 2)
             // ->orderBy('categories.id', 'desc')
             ->paginate($request->pageSize);
