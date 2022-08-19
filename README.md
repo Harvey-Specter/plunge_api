@@ -12,4 +12,3 @@ Plunge_APIはフロントエンドにRestサービスを提供するエンジニ
 [Plunge](https://github.com/Harvey-Specter/plunge) :  データ収集と処理,plunge_Apiにデータを提供する     
 [plunge_ui](https://github.com/Harvey-Specter/plunge_ui) : このプロジェクトのフロントエンドインタフェース
 
-![line220819102529](https://user-images.githubusercontent.com/5182031/185537574-b011bcc1-1388-402d-a108-ce57478a1e49.jpg)
