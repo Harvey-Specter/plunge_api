@@ -27,6 +27,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
         Route::post('users', [UsersController::class, 'store'])->name('users.store');
         // 登录
         Route::post('authorizations', [AuthorizationsController::class, 'store'])->name('authorizations.store');
+        Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
 
     });
 
@@ -45,7 +46,7 @@ Route::prefix('v1')->name('api.v1.')->middleware('throttle:1000,1')->group(funct
             // 刷新token
             Route::put('authorizations/current', [AuthorizationsController::class, 'update'])->name('authorizations.update');
             // 删除token
-            Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
+            // Route::delete('authorizations/current', [AuthorizationsController::class, 'destroy'])->name('authorizations.destroy');
 
             //getStocksByCategoryId
             Route::get('categories/getStocksByCategoryId', [CategoriesController::class, 'getStocksByCategoryId'])->name('categories.getStocksByCategoryId');
