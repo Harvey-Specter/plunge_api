@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "../gitrep/src/plunge"
+		},
+		{
+			"path": "../Homestead"
+		},
+		{
+			"path": "../code/plunge_be"
+		},
+		{
+			"path": "../gitrep/articles"
+		},
+		{
+			"path": "../gitrep/fabric-samples"
+		},
+		{
+			"path": "../gitrep/plunge_ui"
+		}
+	],
+	"settings": {
+		"i18n-ally.localesPaths": [
+			"../../plunge_ui/src/locales"
+		]
+	}
+}
