@@ -12,3 +12,38 @@ Plunge_APIはフロントエンドにRestサービスを提供するエンジニ
 [Plunge](https://github.com/Harvey-Specter/plunge) :  データ収集と処理,plunge_Apiにデータを提供する     
 [plunge_ui](https://github.com/Harvey-Specter/plunge_ui) : このプロジェクトのフロントエンドインタフェース
 
+## プレビュー
+
+<div align="center">
+<figure>
+   <img src="img/Snip20220807_9.png"  height=255>
+   <img src="img/Snip20220810_3.png" height=255>
+<img src="img/Snip20220807_2.png" height=255>
+<img src="img/Snip20220807_3.png" height=255>
+<img src="img/Snip20220807_4.png" height=255>
+<img src="img/Snip20220807_5.png" height=255>
+<img src="img/Snip20220807_6.png" height=255>
+<img src="img/Snip20220807_8.png" height=255>
+</figure>
+</div>
+
+アカウント: `admin@gmail.com/123456` 
+- <a href="https://plunge230724.onrender.com/" target="_blank">[plunge]完全版サイト，最初の訪問で少し遅い</a>
+
+## ブラウザのサポート
+
+ローカル開発の推奨使用` Chrome 80+`ブラウザ
+
+現代ブラウザをサポートし、IEをサポートしない
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt=" Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: | :-: |
+| not support | last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+---
+[![](https://visitcount.itsvg.in/api?id=Harvey-SpectePlungeUIr&icon=0&color=0)](https://visitcount.itsvg.in)
+
+## Lic
+
+[MIT](./LICENSE)
+
