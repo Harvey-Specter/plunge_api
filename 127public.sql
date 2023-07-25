@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : plunge_userpg
+ Source Server         : pg230724_userpg
  Source Server Type    : PostgreSQL
  Source Server Version : 130004 (130004)
  Source Host           : localhost:54320
@@ -26,7 +26,7 @@ MINVALUE  1
 MAXVALUE 2147483647
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."categories_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."categories_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Sequence structure for co_jp_id_seq
@@ -38,7 +38,7 @@ MINVALUE  1
 MAXVALUE 2147483647
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."co_jp_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."co_jp_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Sequence structure for failed_jobs_id_seq
@@ -50,7 +50,7 @@ MINVALUE  1
 MAXVALUE 9223372036854775807
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."failed_jobs_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."failed_jobs_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Sequence structure for migrations_id_seq
@@ -62,7 +62,7 @@ MINVALUE  1
 MAXVALUE 2147483647
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."migrations_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."migrations_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Sequence structure for personal_access_tokens_id_seq
@@ -74,7 +74,7 @@ MINVALUE  1
 MAXVALUE 9223372036854775807
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."personal_access_tokens_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."personal_access_tokens_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Sequence structure for stocks_id_seq
@@ -86,7 +86,7 @@ MINVALUE  1
 MAXVALUE 2147483647
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."stocks_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."stocks_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Sequence structure for users_id_seq
@@ -98,7 +98,7 @@ MINVALUE  1
 MAXVALUE 9223372036854775807
 START 1
 CACHE 1;
-ALTER SEQUENCE "public"."users_id_seq" OWNER TO "plunge_user";
+ALTER SEQUENCE "public"."users_id_seq" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Table structure for categories
@@ -115,7 +115,7 @@ CREATE TABLE "public"."categories" (
   "updated_at" timestamp(0)
 )
 ;
-ALTER TABLE "public"."categories" OWNER TO "plunge_user";
+ALTER TABLE "public"."categories" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of categories
@@ -164,7 +164,7 @@ CREATE TABLE "public"."co_jp" (
   "updated_at" timestamp(0)
 )
 ;
-ALTER TABLE "public"."co_jp" OWNER TO "plunge_user";
+ALTER TABLE "public"."co_jp" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of co_jp
@@ -4432,7 +4432,7 @@ CREATE TABLE "public"."failed_jobs" (
   "failed_at" timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP
 )
 ;
-ALTER TABLE "public"."failed_jobs" OWNER TO "plunge_user";
+ALTER TABLE "public"."failed_jobs" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of failed_jobs
@@ -4450,7 +4450,7 @@ CREATE TABLE "public"."migrations" (
   "batch" int4 NOT NULL
 )
 ;
-ALTER TABLE "public"."migrations" OWNER TO "plunge_user";
+ALTER TABLE "public"."migrations" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of migrations
@@ -4475,7 +4475,7 @@ CREATE TABLE "public"."password_resets" (
   "created_at" timestamp(0)
 )
 ;
-ALTER TABLE "public"."password_resets" OWNER TO "plunge_user";
+ALTER TABLE "public"."password_resets" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of password_resets
@@ -4499,7 +4499,7 @@ CREATE TABLE "public"."personal_access_tokens" (
   "updated_at" timestamp(0)
 )
 ;
-ALTER TABLE "public"."personal_access_tokens" OWNER TO "plunge_user";
+ALTER TABLE "public"."personal_access_tokens" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of personal_access_tokens
@@ -4526,7 +4526,7 @@ CREATE TABLE "public"."stocks" (
   "score" int2 NOT NULL DEFAULT '0'::smallint
 )
 ;
-ALTER TABLE "public"."stocks" OWNER TO "plunge_user";
+ALTER TABLE "public"."stocks" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of stocks
@@ -5055,7 +5055,7 @@ CREATE TABLE "public"."users" (
   "updated_at" timestamp(0)
 )
 ;
-ALTER TABLE "public"."users" OWNER TO "plunge_user";
+ALTER TABLE "public"."users" OWNER TO "pg230724_user";
 
 -- ----------------------------
 -- Records of users
